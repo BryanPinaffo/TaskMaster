@@ -1,0 +1,41 @@
+spring.application.name=tudolist
+
+define o nome da aplicaçao Spring Boot, esse nome pode ser usado em log, no console e em serviços que usam o nome da aplicaçao para identificaçao
+
+valor: tudolist - nome do projeto ou da aplicaçao
+
+--------------------
+spring.datasource.url=jdbc:h2:mem:tudolist
+
+especifica a URL do banco de dados, nesse caso, o banco de dados utilizado é o H2 no modo in-memory (em memoria), ele reside na memoria ram
+
+valor: org.h2.Driver — A classe do driver JDBC para o banco de dados H2.
+
+------------------------------
+spring.datasource.username=admin
+
+define o nome de usuario que sera utilizado para se conectar ao banco de dados H2
+
+valor: admin
+
+----------------------------
+spring.datasource.password=admin
+
+define a senha que sera utilizada para se conectar ao banco de dados H2
+
+valor: admin
+
+----------------------------------
+spring.jpa.database-platform=org.hibernate.dialect.h2Dialect
+
+define o dialeto que o hibernate (ferramente do orm do JPA) deve usar para comunicar com o banco de dados. O dialeto ajuda a hibernate
+a gerar SQL otimizado e compativel com o banco de dados especifico
+
+Valor: org.hibernate.dialect.H2Dialect — Indica ao Hibernate que ele deve usar o dialeto específico do banco de dados H2.
+
+--------------------------
+spring.h2.console.enabled=true
+
+habilita o console web do h2, que é uma interface grafica acessivel pelo navegador para gerenciar e consultar obanco de dados h2
+
+Valor: true — Habilita o console web. O console será acessível em http://localhost:8080/h2-console (por padrão).
