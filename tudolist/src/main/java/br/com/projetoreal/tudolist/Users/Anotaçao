@@ -1,0 +1,13 @@
+InterUserReposity
+
+JpaRepository<UserModel, UUID>
+indica que InterUserRepository estende JpaRepository para a entidade UserModel e usa UUID como o tipo da chave primária.
+
+isso permite que você use todos os métodos pré-definidos da interface JpaRepository,
+como save(), findById(), findAll(), deleteById(), entre outros, sem precisar implementá-los manualmente.
+
+
+UUID:
+
+Especifica o tipo do identificador da entidade. Neste caso,
+UUID é usado como o tipo de chave primária para a entidade UserModel.
