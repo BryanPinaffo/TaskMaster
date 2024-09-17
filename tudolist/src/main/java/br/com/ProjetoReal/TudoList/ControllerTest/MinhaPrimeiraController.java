@@ -1,4 +1,4 @@
-package br.com.projetoreal.tudolist.ControllerTest;
+package br.com.ProjetoReal.TudoList.ControllerTest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

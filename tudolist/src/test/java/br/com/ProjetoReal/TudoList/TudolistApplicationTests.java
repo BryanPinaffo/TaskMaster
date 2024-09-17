@@ -1,4 +1,4 @@
-package br.com.projetoreal.tudolist;
+package br.com.ProjetoReal.TudoList;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

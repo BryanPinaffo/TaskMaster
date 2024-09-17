@@ -1,4 +1,4 @@
-package br.com.projetoreal.tudolist.Users;
+package br.com.ProjetoReal.TudoList.Users;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ import java.util.UUID; // da uma sequencia de id generator
 // podemos usar tbem o @Gettter e o @Setter para um unico
 
 // nao esquecer que tem que baixar tbem o plugin lombok na IDE
-@Entity(name = "tb_users") // estamos definindo as entidades
+@Entity(name = "tb_users") // estamos definindo as entidades (isso em si cria uma tabela)
 public class UserModel {
     @Id // usar sempre o do jakarta.persistence  // definindo o id, a chave primaria
     @GeneratedValue(generator = "UUID") // fala para gerar um ID com o garador UUID
