@@ -1,5 +1,6 @@
 package br.com.projetoreal.tudolist.Users;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,7 +22,7 @@ public class UserModel {
     @Id // usar sempre o do jakarta.persistence  // definindo o id, a chave primaria
     @GeneratedValue(generator = "UUID") // fala para gerar um ID com o garador UUID
     private UUID id;
-
+    @Column(unique = true) // vai ser uma coluna com uma retriçao de atributo unico
     private String userName;
     private String name;
     private String password;

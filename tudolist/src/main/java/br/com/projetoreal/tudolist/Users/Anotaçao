@@ -11,3 +11,6 @@ UUID:
 
 Especifica o tipo do identificador da entidade. Neste caso,
 UUID é usado como o tipo de chave primária para a entidade UserModel.
+
+
+--------------------------------------------------------
