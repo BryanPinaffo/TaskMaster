@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class TaskController {
     @Autowired
     private InterTaskRepository taskRepository;
-   @PostMapping("/")
-    public TaskModel create(@RequestBody TaskModel taskModel){
 
-       System.out.println("chegou no controller");
+    @PostMapping("/")
+    public TaskModel create(@RequestBody TaskModel taskModel) {
 
-    TaskModel taskModel1 = this.taskRepository.save(taskModel);
+        System.out.println("chegou no controller");
 
-    return taskModel1;
+        TaskModel taskModel1 = this.taskRepository.save(taskModel);
+
+        return taskModel1;
     }
 }

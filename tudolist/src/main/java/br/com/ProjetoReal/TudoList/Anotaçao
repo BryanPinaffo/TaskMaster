@@ -1,0 +1,103 @@
+InterUserReposity
+
+JpaRepository<UserModel, UUID>
+indica que InterUserRepository estende JpaRepository para a entidade UserModel e usa UUID como o tipo da chave primária.
+
+isso permite que você use todos os métodos pré-definidos da interface JpaRepository,
+como save(), findById(), findAll(), deleteById(), entre outros, sem precisar implementá-los manualmente.
+
+
+UUID:
+
+Especifica o tipo do identificador da entidade. Neste caso,
+UUID é usado como o tipo de chave primária para a entidade UserModel.
+
+
+--------------------------------------------------------
+
+FilterTaskAuth:
+
+
+@Component
+public class FilterTaskAuth implements Filter {
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        /* a interface filter é utilizado para interceptar requisiçoes e respostas http em aplicaçoes web antes de atingir o recurso
+         * desejado
+         */
+        // serverletRequest - objeto que representa a requisiçao http recebida pelo servidor
+        // serverletResponse - objeto que representa a resposta http que sera enviada de volta para o cliente
+        // filterChain - objeto que representa a cadeia de filtros que serao aplicados a requisiçao
+
+        // aqui ele esta dizendo que o filtro vai ser executado antes de chegar no controller
+        // e vai ser executado depois de chegar no controller
+
+        //-------------------------------------------------
+
+        // executar alguma açao
+        // ele verifica se o usuario existe no banco de dados
+        //todas as verificaçoes necessarias para que o usuario consiga fazer um cadastro
+
+        System.out.println("chegou no filtro");
+        //vai seguir normalmente
+        filterChain .doFilter(servletRequest,servletResponse);
+        // é essencial pois permite que o filtro siga seu caminho
+
+
+
+    }
+}
+
+-------------------------------------------------------------------------------------------------------
+
+diferença entre serverletRequest, serverletResponse e HttpservletRequest, HttpservletResponse:
+
+Característica:
+ 	ServletRequest / ServletResponse :Protocolo	Genérico (pode ser usado para outros protocolos)
+
+    HttpServletRequest / HttpServletResponse:  Específico para HTTP
+    ---------------
+Métodos HTTP:
+		ServletRequest / ServletResponse: Não oferece métodos específicos para HTTP
+
+	HttpServletRequest / HttpServletResponse: Fornece métodos como getMethod(), getHeader(), getSession()
+        ----------
+
+    Autenticação e Autorização:
+Cabeçalhos e Cookies:
+
+		ServletRequest / ServletResponse: Não manipula diretamente cabeçalhos e cookies	Manipula cabeçalhos e
+
+        HttpServletRequest / HttpServletResponse: cookies com getHeader(), addCookie()
+        -----------
+
+    Sessões	:
+
+    	ServletRequest / ServletResponse: Não lida com sessões HTTP
+
+    HttpServletRequest / HttpServletResponse: Lida com sessões através de getSession()
+
+    ------------
+
+
+Uso principal:
+		ServletRequest / ServletResponse: Para requisições genéricas
+
+		HttpServletRequest / HttpServletResponse: Para aplicações web HTTP
+
+-------------------------------------------------------------------------------------------------
+var authorization =request.getHeader("Authorization"); // nesse caso no lugar no var seria uma String
+
+       // var em java permite que o compilador infira automaticamnte o tipo da variavel com base no valor atribuido
+        // porem só pode ser usado em variaveis locais (metodos e afins, nao em classes)
+
+o authorization é uma variavel que vai receber o valor do cabeçalho Authorization, resumidamente:
+quando o cliente faz uma requisição para o servidor, ele inclui um cabeçalho chamado "Authorization" com um valor
+
+que representa o token de autenticação. O servidor então pode usar esse token para autenticar o cliente e
+permitir que ele acesse recursos protegidos.
+
+
+
+
+

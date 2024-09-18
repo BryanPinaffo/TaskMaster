@@ -34,7 +34,7 @@ public class TaskModel {
     private LocalDateTime dataTermino;
     private String prioridade;
 
-    private  UUID idUser;
+    private UUID idUser;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
