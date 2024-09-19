@@ -4,9 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -22,6 +27,8 @@ import java.util.UUID;
      */
 @Data
 @Entity(name = "tb_tasks")
+// Construtor padrão, sem argumento, para conseguir criar um com argumento
+@NoArgsConstructor
 public class TaskModel {
 
     @Id
@@ -39,5 +46,6 @@ public class TaskModel {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    // Construtor padrão
 
 }

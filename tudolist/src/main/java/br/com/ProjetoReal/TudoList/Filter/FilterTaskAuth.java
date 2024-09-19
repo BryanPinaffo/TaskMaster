@@ -23,7 +23,8 @@ public class FilterTaskAuth extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+        //request tudo esta vindo da nossa requisiçao
+        //response oq estamos enviando para o usuario
         var servletPath = request.getServletPath();
 
         if (servletPath.equals("/tasks/")) {
@@ -69,8 +70,12 @@ public class FilterTaskAuth extends OncePerRequestFilter {
 
                 BCrypt.Result passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
                 if (passwordVerify.verified) {
-
+                    request.setAttribute("IdUser", user.getId());
+                    // request.setAttribute é usado para armazenar dados de uma requisiçao
+                    // o IdUser é o nome do atributo que está sendo armazenado
+                    // o user.getId() é o valor que está sendo armazenado no atributo
                     filterChain.doFilter(request, response);
+                    // segue viagem
                 } else {
                     response.sendError(401, "Senha inválida");
                 }
@@ -78,6 +83,7 @@ public class FilterTaskAuth extends OncePerRequestFilter {
             }
 
         } else {
+            //segue viagem
             filterChain.doFilter(request, response);
         }
     }
