@@ -40,8 +40,8 @@ public class TaskController {
 
 
         // Verifica se a data de início é anterior ao momento atual
-        if (taskModel.getDataInicio().isBefore(LocalDateTime.now())) {
-            ResponseEntity.status(400).body("A data de início deve ser maior que a data atual");
+        if (taskModel.getDataInicio().isBefore(LocalDateTime.now()) || taskModel.getDataTermino().isBefore(LocalDateTime.now())) {
+            ResponseEntity.status(400).body("A data de início/termino deve ser maior que a data atual");
             return null;
         }
 
