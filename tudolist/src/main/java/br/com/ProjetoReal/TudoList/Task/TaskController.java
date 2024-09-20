@@ -65,11 +65,19 @@ public class TaskController {
         return tasks;
 
     }
-    @PutMapping("/{id}")
-    public void update(@RequestBody TaskModel taskModel, HttpServletRequest request, @PathVariable UUID id){
+    @PutMapping("/{id}") //são normalmente usadas para atualizar recursos existentes em uma aplicação
+    public TaskModel update(@RequestBody TaskModel taskModel, HttpServletRequest request, @PathVariable UUID id){
+    // esse metodo define que vai atualizar uma tarefa do TaskModel
+        // o @RequestBody é usado para indicar que os dados do corpo da requisição HTTP serão mapeados para o objeto taskModel
+        // o @PathVariable é usado para indicar que o valor do parâmetro id será extraído da URL da requisição
+
+        taskModel.setId(id);
+       return this.taskRepository.save(taskModel);
 
 
     }
+    //Quando o cliente faz a requisição PUT, ele envia um corpo (body) com os novos dados da tarefa que deseja atualizar,
+    // e o Spring automaticamente transforma esses dados no objeto taskModel que será utilizado dentro do método.
 
 
 }
