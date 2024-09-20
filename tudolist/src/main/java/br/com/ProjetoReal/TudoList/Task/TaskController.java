@@ -56,11 +56,18 @@ public class TaskController {
 
     @GetMapping("/")
     public List<TaskModel> lista(HttpServletRequest request) {
-        Object idUser = request.getAttribute("idUser");
+        Object idUser = request.getAttribute("idUser"); // pegando o idUser, que foi previamente armazenado no Filter
         var tasks = this.taskRepository.findByIdUser((UUID) idUser);
+        // o metodo esta consultando o repositorio para buscar todas as tarefas relacionadas ao usuario cujo id foi passado
+
 
 
         return tasks;
+
+    }
+    @PutMapping("/{id}")
+    public void update(@RequestBody TaskModel taskModel, HttpServletRequest request, @PathVariable UUID id){
+
 
     }
 
