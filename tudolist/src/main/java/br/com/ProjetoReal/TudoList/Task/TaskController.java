@@ -5,13 +5,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
+import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -23,10 +19,9 @@ public class TaskController {
     private InterTaskRepository taskRepository;
 
     @PostMapping("/")
-    public TaskModel create(@RequestBody TaskModel taskModel, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public TaskModel create(@RequestBody TaskModel taskModel, HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println("chegou no controller");
-        Object idUser = request.getAttribute("IdUser");
+        Object idUser = request.getAttribute("idUser");
         // Esse método está sendo usado para recuperar o valor
         // que foi previamente armazenado no objeto HttpServletRequest usando o método setAttribute()
         // oq nesse caso seria o idUser
@@ -59,7 +54,15 @@ public class TaskController {
         return taskModel1;
     }
 
+    @GetMapping("/")
+    public List<TaskModel> lista(HttpServletRequest request) {
+        Object idUser = request.getAttribute("idUser");
+        var tasks = this.taskRepository.findByIdUser((UUID) idUser);
 
+
+        return tasks;
+
+    }
 
 
 }

@@ -54,9 +54,6 @@ public class FilterTaskAuth extends OncePerRequestFilter {
             // o usuario e senha estão separados pelo :
             // o username recebe o primeiro elemento do array e o password recebe o segundo elemento do array
 
-            System.out.println("Username: " + username);
-            System.out.println("Password: " + password);
-
 
             // validar usuario
             UserModel user = this.interUserRepository.findByUserName(username);
@@ -70,7 +67,7 @@ public class FilterTaskAuth extends OncePerRequestFilter {
 
                 BCrypt.Result passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
                 if (passwordVerify.verified) {
-                    request.setAttribute("IdUser", user.getId());
+                    request.setAttribute("idUser", user.getId());
                     // request.setAttribute é usado para armazenar dados de uma requisiçao
                     // o IdUser é o nome do atributo que está sendo armazenado
                     // o user.getId() é o valor que está sendo armazenado no atributo
@@ -89,6 +86,6 @@ public class FilterTaskAuth extends OncePerRequestFilter {
     }
 
 
-    //le também já cuida da criação de objetos como HttpServletRequest e HttpServletResponse,
+    //ele também já cuida da criação de objetos como HttpServletRequest e HttpServletResponse,
     // o que torna o código mais focado na lógica principal do filtro.
 }
