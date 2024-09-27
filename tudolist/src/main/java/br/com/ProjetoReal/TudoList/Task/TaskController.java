@@ -59,19 +59,22 @@ public class TaskController {
         Object idUser = request.getAttribute("idUser"); // pegando o idUser, que foi previamente armazenado no Filter
         var tasks = this.taskRepository.findByIdUser((UUID) idUser);
         // o metodo esta consultando o repositorio para buscar todas as tarefas relacionadas ao usuario cujo id foi passado
-
+       // this.taskRepository.findAll();
+        // findAll : retornar uma lista contendo todas as instancias da entidade associada ao repositorio
 
 
         return tasks;
 
     }
     @PutMapping("/{id}") //são normalmente usadas para atualizar recursos existentes em uma aplicação
-    public TaskModel update(@RequestBody TaskModel taskModel, HttpServletRequest request, @PathVariable UUID id){
+    public TaskModel update(@RequestBody TaskModel taskModel, @PathVariable UUID id,HttpServletRequest request){
     // esse metodo define que vai atualizar uma tarefa do TaskModel
         // o @RequestBody é usado para indicar que os dados do corpo da requisição HTTP serão mapeados para o objeto taskModel
         // o @PathVariable é usado para indicar que o valor do parâmetro id será extraído da URL da requisição
-
-        taskModel.setId(id);
+        Object idUser = request.getAttribute("idUser");
+        System.out.println("id user= " + idUser );
+        taskModel.setIdUser((UUID) idUser);
+        taskModel.setId(id); // ele garante que a tarefa que iremos atualizar seja com o id especificado na url
        return this.taskRepository.save(taskModel);
 
 

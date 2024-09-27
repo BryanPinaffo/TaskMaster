@@ -27,7 +27,8 @@ public class FilterTaskAuth extends OncePerRequestFilter {
         //response oq estamos enviando para o usuario
         var servletPath = request.getServletPath();
 
-        if (servletPath.equals("/tasks/")) {
+        System.out.println( " olha isso ai "+servletPath);
+        if (servletPath.startsWith("/tasks/")) {
             // colocado o if para que seja feita em uma rota especifica,
             //pq se nao colocar ele, sera aplicado em todas as rotas, fazendo com q todas as requisiçoes recebidas pela aplicaçao
             // sejam executadas a autenticaçao
