@@ -19,10 +19,20 @@ public class TaskController {
     private InterTaskRepository taskRepository;
 
     @PostMapping("/")
-    public TaskModel create(@RequestBody TaskModel taskModel, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> create(@RequestBody TaskModel taskModel, HttpServletRequest request, HttpServletResponse response) {
+        // o <> faz parte do recurso de "Generic", que permitem que classes e metodos trabalhem com diferentes tipos de dados
+        //  o <?> significa que nao é especifico ou indefinido
+        // nesse caso, estamos dizendo que ele pode envolver qualquer tipo de objeto como o corpo da resposta,
+        // mas nao estamos especificando qual é
+        // ex: ResponseEntity<String> : retornara uma String como resposta
+        // ex: ResponseEntity<TaskModel> : retornara um TaskModel como resposta
+
+        //ResponseEntity é uma classe do Spring Framework que representa toda a resposta HTTP
+        //  O código de status HTTP da resposta (por exemplo, 200 OK, 404 Not Found, 400 Bad Request, etc.).
 
         Object idUser = request.getAttribute("idUser");
-        // Esse método está sendo usado para recuperar o valor
+        System.out.println("ele chegou aqui manior01" );
+        //Esse método está sendo usado para recuperar o valor
         // que foi previamente armazenado no objeto HttpServletRequest usando o método setAttribute()
         // oq nesse caso seria o idUser
         // Em Java, a classe Object é a classe mais genérica de todas
@@ -34,24 +44,32 @@ public class TaskController {
         // quando colocado o setter, foi necessario converter para UUID
 
 
+        if (taskModel.getDataInicio() == null || taskModel.getDataTermino() == null) {
+
+             return ResponseEntity.status(404).body("As datas de início e término não podem ser nulas");
+        }
         // Verifica se a data de início é anterior ao momento atual
         if (taskModel.getDataInicio().isBefore(LocalDateTime.now()) || taskModel.getDataTermino().isBefore(LocalDateTime.now())) {
-            ResponseEntity.status(400).body("A data de início/termino deve ser maior que a data atual");
-            return null;
+
+            return ResponseEntity.status(400).body("A data de início/término deve ser maior que a data atual");
         }
 
         // Verifica se a data de término é anterior à data de início
         if (taskModel.getDataTermino().isBefore(taskModel.getDataInicio())) {
-            ResponseEntity.status(400).body("A data de término deve ser maior do que a data de inicio");
             //a diferença é que o response.sendError mostra apenas o erro ao usuario, e esse mostra o erro e a mensagem
             // ele mostra a mensagem ao cliente
 
-            return null;
+            return ResponseEntity.status(400).body("A data de término deve ser maior do que a data de inicio");
         }
+
+        // tive que mudar um pouco o codigo, coloquei o ReponseEntity<?> para que o responseEntity funcione de forma correta
+        // pois como anteriormente eu retornava null, ele acabava dando uma mensagem 200 (OK) e nao era oq eu queria
+
+
 
         TaskModel taskModel1 = this.taskRepository.save(taskModel);
 
-        return taskModel1;
+        return ResponseEntity.ok(taskModel1);
     }
 
     @GetMapping("/")
