@@ -1,9 +1,11 @@
 package br.com.ProjetoReal.TudoList.Task;
 
+import br.com.ProjetoReal.TudoList.Users.UserModel;
 import br.com.ProjetoReal.TudoList.Utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -86,7 +88,7 @@ public class TaskController {
 
     }
     @PutMapping("/{id}") //são normalmente usadas para atualizar recursos existentes em uma aplicação
-    public TaskModel update(@RequestBody TaskModel taskModel, @PathVariable UUID id,HttpServletRequest request){
+    public ResponseEntity update(@RequestBody TaskModel taskModel, @PathVariable UUID id,HttpServletRequest request){
     // esse metodo define que vai atualizar uma tarefa do TaskModel
         // o @RequestBody é usado para indicar que os dados do corpo da requisição HTTP serão mapeados para o objeto taskModel
         // o @PathVariable é usado para indicar que o valor do parâmetro id será extraído da URL da requisição
@@ -95,15 +97,20 @@ public class TaskController {
        // pegando a task existente para poder mesclar as informações atraves do ID fornecido
         // e caso nao tenha, retornar null
 
+        if(tasks == null){
 
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tarefa não encontrada");
+        }
+
+        if(!tasks.getIdUser().equals(request.getAttribute("idUser"))){ // se ele nao for igual
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Voce nao tem permissao para editar essa tarefa");
+        }
 
         Utils.copyNonNullProperty(taskModel,tasks); // mesclando todas propriedades do TaskModel que nao sao null na entidade tasks existente.
 
 
-        //Object idUser = request.getAttribute("idUser");       nao precisamos mais pois ja estamos pegando as informaçoes no Utils
-       // taskModel.setIdUser((UUID) idUser);
-       // taskModel.setId(id); // ele garante que a tarefa que iremos atualizar seja com o id especificado na url
-       return this.taskRepository.save(tasks);
+       return ResponseEntity.ok().body(this.taskRepository.save(tasks));
 
 
     }
