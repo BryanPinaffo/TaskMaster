@@ -1,5 +1,6 @@
 package br.com.ProjetoReal.TudoList.Task;
 
+import br.com.ProjetoReal.TudoList.Utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,11 +90,20 @@ public class TaskController {
     // esse metodo define que vai atualizar uma tarefa do TaskModel
         // o @RequestBody é usado para indicar que os dados do corpo da requisição HTTP serão mapeados para o objeto taskModel
         // o @PathVariable é usado para indicar que o valor do parâmetro id será extraído da URL da requisição
-        Object idUser = request.getAttribute("idUser");
-        System.out.println("id user= " + idUser );
-        taskModel.setIdUser((UUID) idUser);
-        taskModel.setId(id); // ele garante que a tarefa que iremos atualizar seja com o id especificado na url
-       return this.taskRepository.save(taskModel);
+
+       var tasks =  this.taskRepository.findById(id).orElse(null);
+       // pegando a task existente para poder mesclar as informações atraves do ID fornecido
+        // e caso nao tenha, retornar null
+
+
+
+        Utils.copyNonNullProperty(taskModel,tasks); // mesclando todas propriedades do TaskModel que nao sao null na entidade tasks existente.
+
+
+        //Object idUser = request.getAttribute("idUser");       nao precisamos mais pois ja estamos pegando as informaçoes no Utils
+       // taskModel.setIdUser((UUID) idUser);
+       // taskModel.setId(id); // ele garante que a tarefa que iremos atualizar seja com o id especificado na url
+       return this.taskRepository.save(tasks);
 
 
     }

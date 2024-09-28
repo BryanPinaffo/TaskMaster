@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Utils {
 
-    public void copyNonNullProperty(Object source, Object target){
+    public static void copyNonNullProperty(Object source, Object target){ //o getNullPropertyNames vai atributir tudo ao copuNonNullProperty
 
         BeanUtils.copyProperties(source, target,getNullPropertyNames(source));
         // copyProperties é um metodo do Spring Framework que copia os valores dos atributos de um objeto source para um objeto target
@@ -22,7 +22,7 @@ public class Utils {
 
 
     
-    public String [] getNullPropertyNames(Object source) {
+    public static String [] getNullPropertyNames(Object source) { // vai pegar todas as propriedades null
         
         final BeanWrapper src = new BeanWrapperImpl(source);
         // BeanWrapper é uma interface fornecida pelo Spring Framework que permite acessar e manipular
