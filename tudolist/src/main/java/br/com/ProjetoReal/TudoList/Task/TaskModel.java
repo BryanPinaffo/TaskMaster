@@ -41,4 +41,16 @@ public class TaskModel {
 
     // Construtor padrão
 
+
+    public void setTitle(String title) throws Exception {
+        if(title.length() > 50){
+
+            throw new Exception("Título deve ter até 50 caracteres");
+
+        }
+
+        this.title = title;
+
+    }
+
 }
